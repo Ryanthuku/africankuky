@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Login - Jubilee HMS</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  >
+</head>
+<body>
+  <div class="container mt-5">
+    <h2>Doctor Login</h2>
+    <form id="doctor-login-form">
+      <div class="form-group">
+        <label for="doctor-username">Username</label>
+        <input type="text" class="form-control" id="doctor-username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="doctor-password">Password</label>
+        <input type="password" class="form-control" id="doctor-password" name="password" required>
+      </div>
+      <input type="hidden" name="role" value="doctor">
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <div id="login-error" class="text-danger mt-2"></div>
+    <a href="HMS_2.html" class="btn btn-link mt-3">Back to Home</a>
+  </div>
+  <script>
+    document.getElementById('doctor-login-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const username = document.getElementById('doctor-username').value.trim();
+      const password = document.getElementById('doctor-password').value.trim();
+      const role = 'doctor';
+      const res = await fetch('http://127.0.0.1/jubilee%20hms/backend/login.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ username, password, role })
+      });
+      const data = await res.json();
+      if (data.user && data.user.role === 'doctor') {
+        sessionStorage.setItem('user', JSON.stringify(data.user));
+        window.location.href = 'doctor_dashboard.html';
+      } else {
+        document.getElementById('login-error').textContent = data.error || 'Login failed.';
+      }
+    });
+  </script>
+</body>
+</html>

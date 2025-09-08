@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Doctor Dashboard - Jubilee Hospital Management System</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="HMS.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+</head>
+<body>
+  <header class="main-header bg-primary text-white p-3">
+    <h1>Doctor Dashboard</h1>
+    <button type="button" class="btn btn-danger float-right" onclick="logout()">Logout</button>
+  </header>
+  <main class="container my-4">
+    <h2>Welcome, Doctor</h2>
+    <p>Hello, <span id="doctor-name"></span>!</p>
+    <nav class="nav mb-4">
+      <a href="#" class="nav-link" onclick="showPage('doctor-patient-records');">Patient Records</a>
+      <a href="#" class="nav-link" onclick="showPage('doctor-pharmacy');">Pharmacy</a>
+      <a href="#" class="nav-link" onclick="showPage('doctor-lab');">Lab</a>
+      <a href="#" class="nav-link" onclick="showPage('doctor-profile');">Profile</a>
+    </nav>
+    <!-- Upcoming Appointments Section -->
+    <section id="doctor-appointments" class="page-content mb-4">
+      <h3>Today's Appointments</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Appointment ID</th>
+            <th>Patient Name</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="doctor-appointments-list"></tbody>
+      </table>
+    </section>
+    <!-- Doctor Patient Records Section -->
+    <section id="doctor-patient-records" class="page-content">
+      <h3>My Patients</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr><th>ID</th><th>Name</th><th>Contact</th><th>Ailment</th><th>Status</th><th>Notes</th><th>Action</th></tr>
+        </thead>
+        <tbody id="doctor-patient-list"></tbody>
+      </table>
+      <form id="notes-form">
+        <div class="form-group">
+          <input type="text" class="form-control" name="patient_id" placeholder="Patient ID" required />
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="notes" placeholder="Doctor Notes"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Notes</button>
+      </form>
+      <form id="prescribe-form">
+        <div class="form-group">
+          <input type="text" class="form-control" name="patient_id" placeholder="Patient ID" required>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" name="medication" placeholder="Prescribe Medication" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Prescribe</button>
+      </form>
+    </section>
+
+    <!-- Doctor Pharmacy Section -->
+    <section id="doctor-pharmacy" class="page-content" style="display:none;">
+      <h3>Available Medications</h3>
+      <input type="text" class="form-control mb-2" placeholder="Filter by drug name" onkeyup="filterMedications(this.value)" />
+      <table class="table table-striped">
+        <thead>
+          <tr><th>Drug</th><th>Stock</th><th>Expiry</th></tr>
+        </thead>
+        <tbody id="doctor-pharmacy-list"></tbody>
+      </table>
+    </section>
+
+    <!-- Doctor Lab Section -->
+    <section id="doctor-lab" class="page-content" style="display:none;">
+      <h3>Lab Results</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr><th>Patient</th><th>Test</th><th>Date</th><th>Result</th></tr>
+        </thead>
+        <tbody id="doctor-lab-results"></tbody>
+      </table>
+      <form id="request-lab-form">
+        <div class="form-group">
+          <input type="text" class="form-control" name="patient_id" placeholder="Patient ID" required />
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" name="test_type" placeholder="Test Type" required />
+        </div>
+        <button class="btn btn-primary">Request Test</button>
+      </form>
+    </section>
+
+    <!-- Doctor Profile Section -->
+    <section id="doctor-profile" class="page-content" style="display:none;">
+      <h3>My Profile</h3>
+      <form id="profile-form">
+        <div class="form-group">
+          <input type="text" class="form-control" id="profile-name" name="name" required>
+        </div>
+        <div class="form-group">
+          <input type="email" class="form-control" id="profile-email" name="email" required>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="old-password" name="old_password" placeholder="Old Password">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="new-password" name="new_password" placeholder="New Password">
+        </div>
+        <button class="btn btn-primary">Update Profile</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="HMS.js"></script>
+  <script>
+    // Only run after DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      const user = JSON.parse(sessionStorage.getItem('user'));
+      if (!user || user.role !== 'doctor') {
+        window.location.href = 'HMS_2.html';
+      } else {
+        document.getElementById('doctor-name').textContent = user.name;
+        // Load initial data
+        showPage('doctor-patient-records');
+        loadDoctorPatients(user.id);
+        loadLabResults(user.id);
+        loadPharmacyView();
+        loadProfile();
+
+        // Attach form handlers
+        document.getElementById('profile-form').addEventListener('submit', updateProfile);
+        document.getElementById('notes-form').addEventListener('submit', updateNotes);
+        document.getElementById('prescribe-form').addEventListener('submit', prescribeMedication);
+        document.getElementById('request-lab-form').addEventListener('submit', requestLabTest);
+      }
+    });
+
+    function logout() {
+      sessionStorage.removeItem('user');
+      window.location.href = 'HMS_2.html';
+    }
+  </script>
+</body>
+</html>

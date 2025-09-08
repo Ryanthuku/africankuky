@@ -1,0 +1,854 @@
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    background-color: #f4f8fb;
+    color: #222;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Header */
+.main-header {
+    background-color: #0077b6;
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid #023e8a;
+    position: relative;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.main-header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+/* Add hospital icon before title using inline SVG */
+.main-header h1::before {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background: url('data:image/svg+xml;utf8,<svg fill="%23fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M32 2L2 18v44h60V18L32 2zM22 54H14v-8h8v8zm0-14H14v-8h8v8zm0-14H14V18h8v8zm14 28h-8v-8h8v8zm0-14h-8v-8h8v8zm0-14h-8V18h8v8zm14 28h-8v-8h8v8zm0-14h-8v-8h8v8zm0-14h-8V18h8v8z"/></svg>') no-repeat center;
+    background-size: contain;
+}
+
+/* Tabs with icons */
+.main-header .tabs {
+    display: flex;
+    gap: 1rem;
+}
+
+.main-header .tabs .tab {
+    background: #00b4d8;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1.2rem 0.5rem 2.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background 0.2s, color 0.2s;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Icons inside tabs using fontawesome Unicode or SVG data URLs */
+
+.main-header .tabs .tab.home::before {
+    content: "\f015";
+    /* FontAwesome home unicode */
+    font-family: "FontAwesome";
+    position: absolute;
+    left: 10px;
+    font-size: 1.1rem;
+}
+
+.main-header .tabs .tab.patients::before {
+    content: "\f0f0";
+    /* fa-users */
+    font-family: "FontAwesome";
+    position: absolute;
+    left: 10px;
+    font-size: 1.1rem;
+}
+
+.main-header .tabs .tab.lab::before {
+    content: "\f0c0";
+    /* fa-flask */
+    font-family: "FontAwesome";
+    position: absolute;
+    left: 10px;
+    font-size: 1.1rem;
+}
+
+.main-header .tabs .tab.pharmacy::before {
+    content: "\f484";
+    /* fa-pills */
+    font-family: "FontAwesome";
+    position: absolute;
+    left: 10px;
+    font-size: 1.1rem;
+}
+
+.main-header .tabs .tab.logout::before {
+    content: "\f08b";
+    /* fa-sign-out-alt */
+    font-family: "FontAwesome";
+    position: absolute;
+    left: 10px;
+    font-size: 1.1rem;
+}
+
+.main-header .tabs .tab:hover,
+.main-header .tabs .tab.active {
+    background: #90e0ef;
+    color: #023e8a;
+}
+
+/* Containers & Pages */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.page-content {
+    display: none;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+}
+
+.page-content.active {
+    display: block;
+}
+
+canvas {
+    max-width: 100%;
+    width: 100%;
+    min-height: 300px;
+    height: 400px;
+    display: block;
+    margin: 0 auto 2rem auto;
+}
+
+/* Forms */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+input,
+select,
+textarea {
+    padding: 0.75rem;
+    border: 1px solid #bcd0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #f8fafc;
+    transition: border 0.2s;
+    font-family: inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #0077b6;
+    outline: none;
+    background: #e0f7fa;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    color: #023e8a;
+}
+
+/* Buttons with icons */
+button,
+.btn {
+    background-color: #0077b6;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.2rem 0.75rem 2.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background 0.2s;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+/* Common icons for buttons - using FontAwesome unicode */
+button.save::before,
+.btn.save::before {
+    content: "\f0c7";
+    /* fa-save */
+    font-family: "FontAwesome";
+    font-weight: normal;
+    position: absolute;
+    left: 14px;
+    font-size: 1.1rem;
+}
+
+button.edit::before,
+.btn.edit::before {
+    content: "\f044";
+    /* fa-edit */
+    font-family: "FontAwesome";
+    font-weight: normal;
+    position: absolute;
+    left: 14px;
+    font-size: 1.1rem;
+}
+
+button.delete::before,
+.btn.delete::before {
+    content: "\f1f8";
+    /* fa-trash */
+    font-family: "FontAwesome";
+    font-weight: normal;
+    position: absolute;
+    left: 14px;
+    font-size: 1.1rem;
+}
+
+button.download::before,
+.btn.download::before {
+    content: "\f019";
+    /* fa-download */
+    font-family: "FontAwesome";
+    font-weight: normal;
+    position: absolute;
+    left: 14px;
+    font-size: 1.1rem;
+}
+
+button.logout-btn::before,
+.btn.logout-btn::before {
+    content: "\f08b";
+    /* fa-sign-out-alt */
+    font-family: "FontAwesome";
+    font-weight: normal;
+    position: absolute;
+    left: 14px;
+    font-size: 1.1rem;
+}
+
+/* Hover states */
+button:hover,
+.btn:hover {
+    background-color: #023e8a;
+}
+
+.btn-success {
+    background-color: #38b000;
+    padding-left: 2.8rem;
+    position: relative;
+}
+
+.btn-success::before {
+    content: "\f00c";
+    /* fa-check */
+    font-family: "FontAwesome";
+    position: absolute;
+    left: 14px;
+    font-size: 1.1rem;
+}
+
+.btn-success:hover {
+    background-color: #007200;
+}
+
+.btn-secondary {
+    background-color: #00b4d8;
+    color: #fff;
+    padding-left: 2.8rem;
+    position: relative;
+}
+
+.btn-secondary::before {
+    content: "\f1b2";
+    /* fa-sync-alt */
+    font-family: "FontAwesome";
+    position: absolute;
+    left: 14px;
+    font-size: 1.1rem;
+}
+
+.btn-secondary:hover {
+    background-color: #0096c7;
+}
+
+.btn-danger,
+.logout-btn {
+    background-color: #ef233c;
+    padding-left: 2.8rem;
+    position: relative;
+}
+
+.btn-danger::before,
+.logout-btn::before {
+    content: "\f071";
+    /* fa-exclamation-triangle */
+    font-family: "FontAwesome";
+    position: absolute;
+    left: 14px;
+    font-size: 1.1rem;
+}
+
+.btn-danger:hover,
+.logout-btn:hover {
+    background-color: #d90429;
+}
+
+.btn-link {
+    background: none;
+    color: #0077b6;
+    text-decoration: underline;
+    padding: 0;
+    border: none;
+    font-weight: 600;
+    position: relative;
+    padding-left: 1.4rem;
+}
+
+.btn-link::before {
+    content: "\f0c1";
+    /* fa-link */
+    font-family: "FontAwesome";
+    position: absolute;
+    left: 0;
+    font-size: 1rem;
+}
+
+.btn-link:hover {
+    color: #023e8a;
+}
+
+/* Table with icons for actions */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.04);
+}
+
+th,
+td {
+    border: 1px solid #e0e0e0;
+    padding: 0.75rem;
+    text-align: left;
+    font-size: 1rem;
+    vertical-align: middle;
+}
+
+th {
+    background-color: #0077b6;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+tbody tr:hover {
+    background-color: #caf0f8;
+    transition: background 0.2s;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #f8fafc;
+}
+
+/* Action buttons column */
+td.actions {
+    white-space: nowrap;
+    width: 120px;
+    text-align: center;
+}
+
+/* Action button icons */
+td.actions .btn {
+    padding-left: 2.5rem;
+    padding-right: 1rem;
+    font-size: 0.95rem;
+    margin: 0 0.12rem;
+}
+
+td.actions .btn.edit::before {
+    content: "\f044";
+    /* fa-edit */
+}
+
+td.actions .btn.delete::before {
+    content: "\f1f8";
+    /* fa-trash */
+}
+
+td.actions .btn.view::before {
+    content: "\f06e";
+    /* fa-eye */
+}
+
+/* Navigation */
+.navigation,
+.nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.nav-link,
+.nav-tab {
+    padding: 0.5rem 1.5rem;
+    background: #48cae4;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background 0.2s;
+    position: relative;
+}
+
+.nav-link::before,
+.nav-tab::before {
+    content: "\f0a9";
+    /* fa-arrow-right */
+    font-family: "FontAwesome";
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+}
+
+.nav-link:hover,
+.nav-tab:hover,
+.nav-link.active {
+    background: #00b4d8;
+    color: #fff;
+}
+
+/* Alerts & Messages */
+.text-danger {
+    color: #ef233c !important;
+}
+
+.text-success {
+    color: #38b000 !important;
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1rem;
+}
+
+.alert-success {
+    background: #d9f99d;
+    color: #3a6600;
+}
+
+.alert-success::before {
+    content: "\f058";
+    /* FontAwesome check-circle */
+    font-family: "FontAwesome";
+    font-size: 1.4rem;
+}
+
+.alert-error,
+.alert-danger {
+    background: #ffd6d6;
+    color: #b00020;
+}
+
+.alert-error::before,
+.alert-danger::before {
+    content: "\f071";
+    /* FontAwesome exclamation-triangle */
+    font-family: "FontAwesome";
+    font-size: 1.4rem;
+}
+
+/* Footer */
+.main-footer {
+    text-align: center;
+    padding: 1rem;
+    background: #0077b6;
+    color: white;
+    margin-top: 2rem;
+    border-top: 4px solid #023e8a;
+    font-size: 1rem;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Utility Classes */
+.mt-2 {
+    margin-top: 0.5rem !important;
+}
+
+.mt-3 {
+    margin-top: 1rem !important;
+}
+
+.mt-4 {
+    margin-top: 1.5rem !important;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem !important;
+}
+
+.mb-3 {
+    margin-bottom: 1rem !important;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+.mb-5 {
+    margin-bottom: 2rem !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.float-right {
+    float: right !important;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 992px) {
+    .container {
+        max-width: 98vw;
+        padding: 0 0.5rem;
+    }
+
+    .main-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .main-header .tabs {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .container {
+        padding: 0.5rem;
+    }
+
+    .page-content {
+        padding: 1rem;
+    }
+
+    table,
+    th,
+    td {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-header h1 {
+        font-size: 1.2rem;
+    }
+
+    .nav-link,
+    .nav-tab,
+    button,
+    .btn {
+        font-size: 0.95rem;
+        padding: 0.5rem 0.8rem;
+    }
+
+    .page-content {
+        padding: 0.5rem;
+    }
+}
+.main-header {
+    background: linear-gradient(90deg, #0077b6, #00bfff);
+    color: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.main-header .container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-header .logo {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.main-header .logo i.fa-hospital-o {
+    font-size: 2.6rem;
+    color: #caf0f8;
+    text-shadow: 0 0 4px #90e0ef;
+}
+
+.main-header nav ul.navbar-nav {
+    flex-direction: row;
+    gap: 1.8rem;
+}
+
+.main-header nav .nav-item .nav-link {
+    color: #d0ebff;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.3rem 0.8rem;
+    transition: color 0.3s, background 0.3s;
+    border-radius: 4px;
+}
+/* Remove arrows from top banner navigation links */
+.main-header nav .nav-link::before,
+.main-header nav .nav-tab::before {
+    content: none !important;
+    position: static !important;
+}
+.header-right {
+    margin-left: auto;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.auth-links {
+    display: flex;
+    gap: 1.2rem;
+}
+
+.auth-links a.nav-link {
+    color: #d0ebff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.auth-links a.nav-link i.fa {
+    font-size: 1.15rem;
+    color: #a3cef1;
+    transition: color 0.3s;
+}
+
+.auth-links a.nav-link:hover {
+    color: #023e8a;
+    text-decoration: underline;
+}
+
+.auth-links a.nav-link:hover i.fa {
+    color: #0077b6;
+}
+
+/* Responsive tweaks for smaller screens */
+@media (max-width: 768px) {
+    .main-header .container-fluid {
+        flex-wrap: wrap;
+    }
+
+    nav ul.navbar-nav {
+        gap: 1rem;
+    }
+
+    .auth-links {
+        margin-top: 0.5rem;
+        width: 100%;
+        justify-content: flex-start;
+    } }
+        /* Make sure .logo and nav container align left-right */
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            color: #00bfff;
+            letter-spacing: 2px;
+            gap: 0.5rem;
+        }
+    
+        .logo i.fa-hospital-o {
+            font-size: 2.4rem;
+        }
+    
+        /* Navbar container */
+        .navbar {
+            padding: 0;
+        }
+    
+        .navbar-nav {
+            flex-direction: row !important;
+            /* Important to override bootstrap default column */
+            gap: 1.2rem;
+        }
+    
+        .nav-item {
+            list-style: none;
+        }
+    
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #fff;
+            background-color: #00b4d8;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            user-select: none;
+            text-decoration: none;
+        }
+    
+        /* Icon inside each nav link */
+        .nav-link i.fa {
+            font-size: 1.1rem;
+            color: #caf0f8;
+            transition: color 0.3s ease;
+        }
+    
+        /* Active and hover states */
+        .nav-link:hover,
+        .nav-link.active {
+            background-color: #90e0ef;
+            color: #023e8a;
+        }
+    
+        .nav-link:hover i.fa,
+        .nav-link.active i.fa {
+            color: #0077b6;
+        }
+    
+        /* Auth links container */
+        .auth-links {
+            display: flex;
+            gap: 1rem;
+            margin-left: 1.5rem;
+        }
+                    
+        /* Auth links share nav-link styling but slightly smaller font */
+        .auth-links .nav-link {
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            background-color: #48cae4;
+            border-radius: 6px;
+        }
+    
+        .auth-links .nav-link:hover {
+            background-color: #00b4d8;
+            color: #fff;
+        }
+    
+        .auth-links .nav-link i.fa {
+            font-size: 1rem;
+            color: #caf0f8;
+        }
+    
+        /* Container holding nav + auth-align right, logo left */
+        .d-flex.justify-content-between.align-items-center>div:last-child {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+    
+        /* Responsive - stack on smaller screens */
+        @media (max-width: 768px) {
+            header .container-fluid>.d-flex {
+                flex-wrap: wrap;
+            }
+    
+            .auth-links {
+                margin-left: 0;
+                margin-top: 0.7rem;
+                width: 100%;
+                justify-content: flex-start;
+            }
+    
+            .navbar-nav {
+                flex-wrap: wrap;
+            }
+    
+            .nav-link {
+                padding: 0.4rem 0.7rem;
+                font-size: 0.9rem;
+            } }
+                        .auth-links a.nav-link::before {
+                            content: none !important;
+                            position: static !important;           }
+                                                        .nav-link::before,
+                                                        .nav-tab::before {
+                                                            content: none !important;
+                                                            /* Remove generated content */
+                                                            position: static !important;
+                                                            /* Reset positioning */
+                                                            width: 0 !important;
+                                                            height: 0 !important;
+                                                            margin: 0 !important;
+                                                        }
+
+/* FontAwesome Setup */
+/* Make sure to include FontAwesome CSS in your HTML to render icons correctly */
+
+/* Example CDN link for FontAwesome 4.7 */
+/* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" /> */
+
+/* Modern FontAwesome 5+ or 6+ requires proper class structure */
+/* Adjust CSS content codes or switch to SVG/JS approach accordingly */

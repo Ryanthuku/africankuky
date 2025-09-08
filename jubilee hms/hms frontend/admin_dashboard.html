@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard - Jubilee Hospital Management System</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="HMS.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="main-header bg-primary text-white p-3">
+    <h1>Admin Dashboard</h1>
+    <button type="button" class="btn btn-danger float-right" onclick="logout()">Logout</button>
+  </header>
+  <main class="container my-4">
+    <h2>Welcome, Admin</h2>
+    <nav class="nav mb-4">
+      <a href="#" class="nav-link" onclick="showPage('admin-profile');">Profile</a>
+      <a href="#" class="nav-link" onclick="showPage('doctor-registration-panel');">Register Doctor</a>
+      <a href="#" class="nav-link" onclick="showPage('admin-registration-panel');">Register Admin</a>
+      <a href="#" class="nav-link" onclick="showPage('patients-panel');">Patients</a>
+      <a href="#" class="nav-link" onclick="showPage('pharmacy-panel');">Medications</a>
+      <a href="#" class="nav-link" onclick="showPage('lab-panel');">Lab Records</a>
+      <a href="#" class="nav-link" onclick="showPage('analytics-panel');">Analytics</a>
+      <a href="#" class="nav-link" onclick="logout()">Logout</a>
+    </nav>
+
+    <!-- Profile Panel -->
+    <section id="admin-profile" class="page-content mb-5" style="display:none;">
+      <h3>My Profile</h3>
+      <form id="profile-form">
+        <div class="form-group">
+          <label for="profile-name">Full Name</label>
+          <input type="text" class="form-control" id="profile-name" name="name" placeholder="Full Name" required>
+        </div>
+        <div class="form-group">
+          <label for="profile-email">Email</label>
+          <input type="email" class="form-control" id="profile-email" name="email" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+          <label for="old-password">Old Password</label>
+          <input type="password" class="form-control" id="old-password" name="old_password" placeholder="Old Password">
+        </div>
+        <div class="form-group">
+          <label for="new-password">New Password</label>
+          <input type="password" class="form-control" id="new-password" name="new_password" placeholder="New Password">
+        </div>
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+      </form>
+    </section>
+
+    <!-- Doctor Registration Panel -->
+    <section id="doctor-registration-panel" class="page-content mb-5" style="display:none;">
+      <h3>Register New Doctor</h3>
+      <form id="register-doctor-form" class="mb-4">
+        <div class="form-group">
+          <label for="doctor-username">Username</label>
+          <input type="text" class="form-control" id="doctor-username" name="username" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+          <label for="doctor-name">Full Name</label>
+          <input type="text" class="form-control" id="doctor-name" name="name" placeholder="Full Name" required>
+        </div>
+        <div class="form-group">
+          <label for="doctor-email">Email</label>
+          <input type="email" class="form-control" id="doctor-email" name="email" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+          <label for="doctor-password">Password</label>
+          <input type="password" class="form-control" id="doctor-password" name="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Register Doctor</button>
+      </form>
+    </section>
+
+    <!-- Admin Registration Panel -->
+    <section id="admin-registration-panel" class="page-content mb-5" style="display:none;">
+      <h3>Register New Admin</h3>
+      <form id="register-admin-form" class="mb-4">
+        <div class="form-group">
+          <label for="admin-username">Username</label>
+          <input type="text" class="form-control" id="admin-username" name="username" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+          <label for="admin-name">Full Name</label>
+          <input type="text" class="form-control" id="admin-name" name="name" placeholder="Full Name" required>
+        </div>
+        <div class="form-group">
+          <label for="admin-email">Email</label>
+          <input type="email" class="form-control" id="admin-email" name="email" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+          <label for="admin-password">Password</label>
+          <input type="password" class="form-control" id="admin-password" name="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Register Admin</button>
+      </form>
+    </section>
+
+    <!-- Patients Panel with full CRUD -->
+    <section id="patients-panel" class="page-content mb-5" style="display:none;">
+      <h3>Manage Patients</h3>
+      <button type="button" class="btn btn-secondary mb-2" onclick="printSection('patients-panel')">
+        <span class="fa fa-print"></span> Print Patients
+      </button>
+      <button type="button" class="btn btn-success mb-2" onclick="downloadTableCSV('patients-list','patients.csv')">
+        <span class="fa fa-download"></span> Download Patients
+      </button>
+      <form id="register-form" class="mb-4">
+        <div class="form-group">
+          <label for="register-name">First Name</label>
+          <input type="text" class="form-control" id="register-name" name="name" placeholder="First Name" required>
+        </div>
+        <div class="form-group">
+          <label for="register-dob">Date of Birth</label>
+          <input type="date" class="form-control" id="register-dob" name="dob" required>
+        </div>
+        <div class="form-group">
+          <label for="register-address">Address</label>
+          <input type="text" class="form-control" id="register-address" name="address" placeholder="Address" required>
+        </div>
+        <div class="form-group">
+          <label for="register-mobile">Mobile</label>
+          <input type="text" class="form-control" id="register-mobile" name="mobile" placeholder="Mobile" required>
+        </div>
+        <div class="form-group">
+          <label for="register-ailment">Ailment</label>
+          <input type="text" class="form-control" id="register-ailment" name="ailment" placeholder="Ailment" required>
+        </div>
+        <label for="assigned_doctor_patients">Assign to Doctor</label>
+        <select id="assigned_doctor_patients" name="assigned_doctor" class="form-control mb-2">
+          <option value="">Assign to Doctor</option>
+          <!-- Populated dynamically by JS -->
+        </select>
+        <button type="submit" class="btn btn-primary">Add Patient</button>
+      </form>
+      <input type="text" class="form-control mb-2" placeholder="Search by name or ID" onkeyup="filterPatients(this.value)" />
+      <table class="table table-striped" id="patients-table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">DOB</th>
+            <th scope="col">Address</th>
+            <th scope="col">Mobile</th>
+            <th scope="col">Ailment</th>
+            <th scope="col">Doctor</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="patients-list">
+ 
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Pharmacy Panel -->
+    <section id="pharmacy-panel" class="page-content mb-5" style="display:none;">
+      <h3>Medication Inventory</h3>
+      <button type="button" class="btn btn-secondary mb-3" onclick="printSection('pharmacy-panel')">
+        <span class="fa fa-print"></span> Print Medications
+      </button>
+      <button type="button" class="btn btn-success mb-3" onclick="downloadTableCSV('pharmacy-table','medications.csv')">
+        <span class="fa fa-download"></span> Download Medications
+      </button>
+      <form id="add-medication-form">
+        <div class="form-group">
+          <label for="drug_name">Drug Name</label>
+          <input type="text" class="form-control" name="drug_name" id="drug_name" placeholder="Drug Name" required>
+        </div>
+        <div class="form-group">
+          <label for="stock">Stock</label>
+          <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock" required>
+        </div>
+        <div class="form-group">
+          <label for="expiry">Expiry</label>
+          <input type="date" class="form-control" name="expiry" id="expiry" required>
+        </div>
+        <div class="form-group">
+          <label for="manufacturer">Manufacturer</label>
+          <input type="text" class="form-control" name="manufacturer" id="manufacturer" placeholder="Manufacturer" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Medication</button>
+      </form>
+      <table class="table table-striped" id="pharmacy-table">
+        <thead>
+          <tr>
+            <th scope="col">Drug</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Expiry</th>
+            <th scope="col">Manufacturer</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="pharmacy-list">
+        
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Lab Panel -->
+    <section id="lab-panel" class="page-content mb-5" style="display:none;">
+      <h3>Lab Records</h3>
+      <button type="button" class="btn btn-success mb-3" onclick="downloadTableCSV('lab-table','lab_records.csv')">
+        <span class="fa fa-download"></span> Download Lab Records
+      </button>
+      <form id="add-lab-form">
+        <div class="form-group">
+          <label for="lab-patient-id">Patient</label>
+          <select class="form-control" name="patient_id" id="lab-patient-id" required>
+            <option value="">Select Patient</option>
+            <!-- Populated dynamically by JS -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="lab-test">Test Type</label>
+          <input type="text" class="form-control" name="test_type" id="lab-test" placeholder="Test Type" required>
+        </div>
+        <div class="form-group">
+          <label for="lab-date">Date</label>
+          <input type="date" class="form-control" name="test_date" id="lab-date" required>
+        </div>
+        <div class="form-group">
+          <label for="lab-result">Result</label>
+          <input type="text" class="form-control" name="result" id="lab-result" placeholder="Result" required>
+        </div>
+        <label for="assigned_doctor_lab">Assign to Doctor</label>
+        <select id="assigned_doctor_lab" name="doctor_id" class="form-control mb-2">
+          <option value="">Assign to Doctor</option>
+          <!-- Populated dynamically by JS -->
+        </select>
+        <button type="submit" class="btn btn-primary">Add Record</button>
+      </form>
+      <table class="table table-striped" id="lab-table">
+        <thead>
+          <tr>
+            <th scope="col">Patient ID</th>
+            <th scope="col">Test</th>
+            <th scope="col">Date</th>
+            <th scope="col">Result</th>
+            <th scope="col">Doctor</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="lab-list">
+      
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Appointments Panel -->
+    <section id="appointments-panel" class="page-content mb-5" style="display:none;">
+      <h3>Manage Appointments</h3>
+   
+    </section>
+
+    <!-- Analytics Panel -->
+    <section id="analytics-panel" class="page-content" style="display:none;">
+      <h3>System Analytics</h3>
+      <div>
+        <h5>Patients Registered Per Month</h5>
+        <canvas id="patientChart"></canvas>
+      </div>
+      <div>
+        <h5>Lab Tests Per Type</h5>
+        <canvas id="labChart"></canvas>
+      </div>
+      <div>
+        <h5>Medications Stock Levels</h5>
+        <canvas id="pharmacyChart"></canvas>
+      </div>
+    </section>
+    <!-- Edit Patient Modal (hidden by default) -->
+<div id="edit-patient-modal" style="display:none; position:fixed; top:10%; left:25%; width:50%; background:#fff; border:1px solid #ccc; padding:20px; z-index:1000;">
+  <h4>Edit Patient</h4>
+  <form id="edit-patient-form">
+    <input type="hidden" id="edit-patient-id" />
+    <div class="form-group">
+      <label for="edit-patient-name">Name</label>
+      <input type="text" id="edit-patient-name" class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label for="edit-patient-dob">Date of Birth</label>
+      <input type="date" id="edit-patient-dob" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="edit-patient-address">Address</label>
+      <input type="text" id="edit-patient-address" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="edit-patient-mobile">Mobile</label>
+      <input type="text" id="edit-patient-mobile" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="edit-patient-ailment">Ailment</label>
+      <input type="text" id="edit-patient-ailment" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="edit-patient-assigned-doctor">Assigned Doctor ID</label>
+      <input type="number" id="edit-patient-assigned-doctor" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-secondary" onclick="document.getElementById('edit-patient-modal').style.display='none'">Cancel</button>
+  </form>
+</div>
+  </main>
+  <script src="HMS.js"></script>
+</body>
+</html>

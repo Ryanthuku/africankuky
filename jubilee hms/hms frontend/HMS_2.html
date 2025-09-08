@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jubilee Hospital Management System</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="HMS.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+</head>
+<body>
+  <header class="main-header py-3">
+    <div class="container-fluid d-flex align-items-center">
+      <div class="logo">
+        <i class="fa fa-hospital-o"></i>
+        <span>JUBILEE HMS</span>
+      </div>
+      
+      <!-- Group nav + auth here -->
+      <div class="header-right d-flex align-items-center ml-auto">
+        <nav class="navbar navbar-expand p-0">
+          <ul class="navbar-nav flex-row">
+            <li class="nav-item">
+              <a href="#" class="nav-link active"
+                 onclick="showSection('home-section'); setActiveTab(this); return false;">
+                <i class="fa fa-home"></i> HOME
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link"
+                 onclick="showSection('about-section'); setActiveTab(this); return false;">
+                <i class="fa fa-info-circle"></i> ABOUT
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link"
+                 onclick="showSection('contact-section'); setActiveTab(this); return false;">
+                <i class="fa fa-envelope"></i> CONTACT US
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <a href="#" class="nav-link" 
+   onclick="redirectToLogin('doctor'); return false;">
+  <i class="fa fa-user-md"></i> Doctor Login
+</a>
+
+<a href="#" class="nav-link" 
+   onclick="redirectToLogin('admin'); return false;">
+  <i class="fa fa-user"></i> Admin Login
+</a>
+        </div>
+      </div>
+     </header>
+  <main class="container my-4">
+    <!-- Home Section -->
+    <section id="home-section" class="page-content">
+      <h2>Welcome to Jubilee Hospital– Your Health, Our Priority</h2>
+      <p>
+        At Jubilee Hospital, we are committed to delivering exceptional healthcare with compassion, professionalism, and a dedication to your well-being. Our team of highly skilled doctors, nurses, and medical specialists work tirelessly to ensure that every patient receives personalized, high-quality care in a safe and welcoming environment.
+
+      </p>
+
+      <!-- Book Appointment Form -->
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <h3 class="mb-4" style="font-weight:700;">
+            BOOK <span style="color:#00bfff;">APPOINTMENT</span>
+          </h3>
+          <form id="appointment-form">
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label>First Name</label>
+                <input type="text" class="form-control" id="appt-first-name" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label>Assign Doctor</label>
+                <select class="form-control" id="appt-doctor" required>
+                  <option value="">Select Doctor</option>
+                  <!-- Populated dynamically with JS -->
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label>Ailment</label>
+                <input type="text" class="form-control" id="appt-ailment" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label>Mobile</label>
+                <input type="text" class="form-control" id="appt-mobile" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label>Address</label>
+                <input type="text" class="form-control" id="appt-address" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label>Date of Birth</label>
+                <input type="date" class="form-control" id="appt-dob" required>
+              </div>
+            </div>
+            <button class="btn btn-primary mt-2" type="submit">Book Appointment</button>
+          </form>
+        </div>
+      </div>
+      <h4>Why Choose Jubilee Hospital?</h4>
+      <ul>
+        <li>24/7 Availability: Whether day or night, our expert medical team is always ready to serve you.
+        </li>
+        <li>Patient-Centered Care: Your health and comfort are at the heart of everything we do.
+        </li>
+        <li>Advanced Medical Facilities: We are equipped with state-of-the-art technology to offer accurate diagnostics and effective treatments
+        </li>
+        <li>Experienced Professionals: Our dedicated healthcare providers bring years of expertise in various medical fields to ensure optimal patient outcomes
+        </li>
+        <li>Compassionate Service: We treat every patient with dignity, respect, and understanding, fostering a culture of trust and support.
+        </li>
+      </ul>
+      <p> Whether you need routine medical consultations, emergency care, specialized treatments, or preventive healthcare, Jubilee Hospital is here for you. We are honored to be a part of your health journey and strive to make each visit a positive and reassuring experience.
+      </p>
+      <p>Welcome to Jubilee Hospital – where care meets excellence.
+        We look forward to serving you!
+        </p>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about-section" class="page-content">
+      <h2>About Jubilee Hospital – Excellence in Healthcare, Compassion in Service</h2>
+      <p>
+        Welcome to Jubilee Hospital, a leading healthcare institution dedicated to providing exceptional medical services with a commitment to patient satisfaction, safety, and well-being.
+      </p>
+      <h4>Our Mission</h4>
+      <p>At Jubilee Hospital, our mission is to deliver high-quality, compassionate healthcare to all patients. We strive to create an environment where professional expertise meets human-centered care, ensuring every individual receives treatment tailored to their needs
+      </p>
+      <h4>Our Vision</h4>
+      <p>We aspire to be a trusted healthcare provider, setting benchmarks in medical innovation, patient care, and wellness solutions. Our vision is to enhance lives by offering advanced treatments, preventive care, and holistic healing while fostering a strong relationship between patients and healthcare providers.
+      </p>
+      <h4>Our Services</h4>
+      <p>Jubilee Hospital offers a wide range of medical services, ensuring comprehensive healthcare for individuals and families:
+      </p>
+      <ul>
+        <li>Emergency Care: Available 24/7, our emergency unit ensures immediate medical attention in critical situations.
+        </li>
+        <li>Outpatient & Inpatient Care: From routine check-ups to long-term hospital stays, we provide expert medical support.
+        </li>
+        <li>Diagnostic Services: Our hospital is equipped with state-of-the-art diagnostic technology, ensuring accurate and timely results.
+        </li>
+        <li>Surgical Procedures: We conduct minor and major surgeries with skilled professionals and modern surgical techniques
+        </li>
+        <li>- Maternity & Childcare: Expecting mothers and newborns receive top-tier care from our experienced maternal health specialists.
+        </li>
+      </ul>
+      <h4>Visit Us</h4>
+      <p>
+        Located in a convenient and accessible area, Jubilee Hospital is here to serve you. Whether you need urgent medical assistance or routine check-ups, our doors are open to provide top-quality care with respect, dignity, and professionalism.
+
+      </p>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact-section" class="page-content">
+      <h2>Contact Us</h2>
+      <p>
+        <strong>Email:</strong> info@jubileehospital.com<br>
+        <strong>Phone:</strong> +254 113850430<br>
+        <strong>Address:</strong>enterprise Road, Nairobi, Kenya
+      </p>
+      <h4>Send us a message</h4>
+      <form>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Your Name" required>
+        </div>
+        <div class="form-group">
+          <input type="email" class="form-control" placeholder="Your Email" required>
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" placeholder="Your Message" required></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit" disabled>Send</button>
+      </form>
+      <br>
+      <p>At Jubilee Hospital, your health is our priority. We look forward to being your trusted healthcare partner in every step of your medical journey.
+      </p>
+    </section>
+  </main>
+
+  <footer class="main-footer bg-primary text-white text-center py-3">
+    <p>&copy; 2025 Jubilee Hospital Management System. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Navigation logic
+    function showSection(sectionId) {
+      document.querySelectorAll('.page-content').forEach(sec => {
+        sec.style.display = (sec.id === sectionId) ? 'block' : 'none';
+      });
+    }
+    function setActiveTab(link) {
+      document.querySelectorAll('.nav-link').forEach(tab => tab.classList.remove('active'));
+      link.classList.add('active');
+    }
+    function redirectToLogin(type) {
+      if (type === 'doctor') {
+        window.location.href = 'doctor_login.html';
+      } else if (type === 'admin') {
+        window.location.href = 'admin_login.html';
+      }
+    }
+
+    // Dynamically populate doctor dropdown
+    async function populateDoctorDropdown() {
+      try {
+        const res = await fetch('http://127.0.0.1/jubilee%20hms/backend/users.php?role=doctor');
+        const doctors = await res.json();
+        const doctorSelect = document.getElementById('appt-doctor');
+        if (doctorSelect) {
+          doctorSelect.innerHTML = '<option value="">Select Doctor</option>';
+          doctors.forEach(doc => {
+            doctorSelect.innerHTML += `<option value="${doc.id}">${doc.name}</option>`;
+          });
+        }
+      } catch (e) {
+        // Optionally show an alert
+      }
+    }
+
+    // Load appointments for the public home page
+    async function loadAppointments() {
+      try {
+        const res = await fetch('http://127.0.0.1/jubilee%20hms/backend/patients.php');
+        const appointments = await res.json();
+        const tbody = document.getElementById('public-appointments-list');
+        if (tbody) {
+          tbody.innerHTML = '';
+          appointments.forEach(app => {
+            tbody.innerHTML += `<tr>
+              <td>${app.id || ''}</td>
+              <td>${app.first_name || ''}</td>
+              <td>${app.dob || ''}</td>
+              <td>${app.mobile || ''}</td>
+              <td>${app.assigned_doctor_id || ''}</td>
+              <td>${app.status || ''}</td>
+            </tr>`;
+          });
+        }
+      } catch (e) {
+        // Optionally show an error
+      }
+    }
+
+    // Handle appointment form submission
+    document.addEventListener('DOMContentLoaded', function() {
+      showSection('home-section');
+      setActiveTab(document.querySelector('.nav-link.active'));
+      populateDoctorDropdown();
+      loadAppointments();
+
+      const apptForm = document.getElementById('appointment-form');
+      if (apptForm) {
+        apptForm.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          const first_name = document.getElementById('appt-first-name').value.trim();
+          const assigned_doctor_id = document.getElementById('appt-doctor').value.trim();
+          const ailment = document.getElementById('appt-ailment').value.trim();
+          const mobile = document.getElementById('appt-mobile').value.trim();
+          const address = document.getElementById('appt-address').value.trim();
+          const dob = document.getElementById('appt-dob').value;
+
+          // Send to backend (patients.php)
+          const res = await fetch('http://127.0.0.1/jubilee%20hms/backend/register_patients.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              first_name: first_name,
+              assigned_doctor_id: assigned_doctor_id,
+              ailment: ailment,
+              mobile: mobile,
+              address: address,
+              dob: dob,
+              status: 'Scheduled'
+            })
+          });
+          const data = await res.json();
+          if (data.success || data.message) {
+            alert('Appointment booked successfully!');
+            apptForm.reset();
+            loadAppointments();
+          } else {
+            alert(data.error || 'Failed to book appointment.');
+          }
+        });
+      }
+    });
+  </script>
+  <script src="HMS.js"></script>
+</body>
+</html>
